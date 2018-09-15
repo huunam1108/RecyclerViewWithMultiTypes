@@ -1,5 +1,6 @@
 package namnh.com.recyclerviewwithmultitypes.model.category
 
+import android.util.Log
 import android.view.ViewGroup
 import namnh.com.recyclerviewwithmultitypes.R
 import namnh.com.recyclerviewwithmultitypes.adapter.BaseAdapter
@@ -8,6 +9,7 @@ import namnh.com.recyclerviewwithmultitypes.adapter.BaseDiffUtil
 class FilterAdapter : BaseAdapter(diffUtil) {
 
     override fun customViewHolder(parent: ViewGroup, viewType: Int): Any {
+        Log.d("x", "xxxx customViewHolder $viewType")
         return FilterViewHolder(inflateView(R.layout.item_filter, parent))
     }
 
