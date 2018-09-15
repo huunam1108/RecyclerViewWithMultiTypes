@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <View
+        android:id="@+id/image_thumb"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#0f0"
+        app:layout_constraintDimensionRatio="16:9"
+        />
+
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_13"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/image_thumb"
+        tools:text="This is video title"
+        />
+
+    <TextView
+        android:id="@+id/text_uploader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_10"
+        app:layout_constraintTop_toBottomOf="@+id/text_description"
+        tools:text="CNBC News"
+        />
+
+    <TextView
+        android:id="@+id/text_video_viewed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_10"
+        app:layout_constraintTop_toBottomOf="@+id/text_uploader"
+        tools:text="8tr lượt xem"
+        />
+
+</android.support.constraint.ConstraintLayout>

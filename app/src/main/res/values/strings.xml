@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RecyclerViewWithMultiTypes</string>
+    <string name="video_viewed_number">%1$d lượt xem</string>
+    <string name="pager_id">Page %1$d</string>
+</resources>
