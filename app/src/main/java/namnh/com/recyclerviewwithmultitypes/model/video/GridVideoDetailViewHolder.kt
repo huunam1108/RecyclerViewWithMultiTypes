@@ -15,20 +15,19 @@ class GridVideoDetailViewHolder(itemView: View) : BaseViewHolder<GridVideoDetail
     private var videoDetailAdapter: VideoDetailAdapter? = null
 
     init {
-        videoRecyclerView.layoutManager = GridLayoutManager(itemView.context, 2)
-        videoRecyclerView.isNestedScrollingEnabled = false
-        videoRecyclerView.setHasFixedSize(true)
+        val layoutManager = GridLayoutManager(itemView.context, 2)
+        layoutManager.initialPrefetchItemCount = 4
+        videoRecyclerView.layoutManager = layoutManager
         videoRecyclerView.addItemDecoration(GridSpacingItemDecoration(2, 20, false))
     }
 
     override fun bind(item: GridVideoDetailItem) {
-        super.bind(item)
         tvTitle.text = item.categoryName
         if (videoDetailAdapter == null) {
             videoDetailAdapter = VideoDetailAdapter(item.videoList)
             videoRecyclerView.adapter = videoDetailAdapter
         } else {
-            videoDetailAdapter!!.videoList = item.videoList
+            videoDetailAdapter!!.submitList(item.videoList)
         }
     }
 }

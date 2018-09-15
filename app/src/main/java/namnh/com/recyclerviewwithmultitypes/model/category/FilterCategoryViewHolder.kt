@@ -13,20 +13,18 @@ class FilterCategoryViewHolder(itemView: View) : BaseViewHolder<FilterCategoryIt
     private var filterAdapter: FilterAdapter? = null
 
     init {
-        filterRecyclerView.layoutManager = LinearLayoutManager(itemView.context,
-            RecyclerView.HORIZONTAL, false)
-        filterRecyclerView.isNestedScrollingEnabled = false
-        filterRecyclerView.setHasFixedSize(true)
+        val layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
+        layoutManager.initialPrefetchItemCount = 4
+        filterRecyclerView.layoutManager = layoutManager
         filterRecyclerView.addItemDecoration(HorizontalSpaceItemDecoration(20))
     }
 
     override fun bind(item: FilterCategoryItem) {
-        super.bind(item)
         if (filterAdapter == null) {
             filterAdapter = FilterAdapter(item.filterList)
             filterRecyclerView.adapter = filterAdapter
         } else {
-            filterAdapter!!.filterList = item.filterList
+            filterAdapter!!.submitList(item.filterList)
         }
     }
 }

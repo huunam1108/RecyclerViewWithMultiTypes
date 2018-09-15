@@ -1,32 +1,27 @@
 package namnh.com.recyclerviewwithmultitypes.model.video
 
+import android.util.Log
 import android.view.ViewGroup
 import namnh.com.recyclerviewwithmultitypes.R
 import namnh.com.recyclerviewwithmultitypes.adapter.BaseAdapter
 import namnh.com.recyclerviewwithmultitypes.adapter.BaseDiffUtil
-import namnh.com.recyclerviewwithmultitypes.adapter.BaseViewHolder
-import namnh.com.recyclerviewwithmultitypes.adapter.RecyclerViewItem
 
-class VideoDetailAdapter(var videoList: List<VideoDetailItem>) : BaseAdapter(videoList,
-    DIFF_CALLBACK) {
+class VideoDetailAdapter(videoList: List<VideoDetailItem>) : BaseAdapter(videoList, diffUtil) {
 
-    @Suppress("UNCHECKED_CAST")
-    override fun onCreateViewHolder(parent: ViewGroup,
-        viewType: Int): BaseViewHolder<in RecyclerViewItem> {
-        return VideoDetailViewHolder(
-            inflateView(R.layout.item_video, parent)) as BaseViewHolder<in RecyclerViewItem>
+    override fun customViewHolder(parent: ViewGroup, viewType: Int): Any {
+        return VideoDetailViewHolder(inflateView(R.layout.item_video, parent))
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : BaseDiffUtil<RecyclerViewItem>() {
-            override fun areItemsTheSame(oldUser: RecyclerViewItem,
-                newUser: RecyclerViewItem): Boolean {
+        private val diffUtil = object : BaseDiffUtil<VideoDetailItem>() {
+            override fun areItemsTheSame(oldItem: VideoDetailItem,
+                newItem: VideoDetailItem): Boolean {
                 return true
             }
 
-            override fun areContentsTheSame(oldUser: RecyclerViewItem,
-                newUser: RecyclerViewItem): Boolean {
-                return oldUser == newUser
+            override fun areContentsTheSame(oldItem: VideoDetailItem,
+                newItem: VideoDetailItem): Boolean {
+                return newItem == oldItem
             }
         }
     }

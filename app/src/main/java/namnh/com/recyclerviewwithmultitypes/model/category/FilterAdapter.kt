@@ -4,29 +4,21 @@ import android.view.ViewGroup
 import namnh.com.recyclerviewwithmultitypes.R
 import namnh.com.recyclerviewwithmultitypes.adapter.BaseAdapter
 import namnh.com.recyclerviewwithmultitypes.adapter.BaseDiffUtil
-import namnh.com.recyclerviewwithmultitypes.adapter.BaseViewHolder
-import namnh.com.recyclerviewwithmultitypes.adapter.RecyclerViewItem
 
-class FilterAdapter(var filterList: List<FilterItem>) : BaseAdapter(filterList,
-    DIFF_CALLBACK) {
+class FilterAdapter(filterList: List<FilterItem>) : BaseAdapter(filterList, diffUtil) {
 
-    @Suppress("UNCHECKED_CAST")
-    override fun onCreateViewHolder(parent: ViewGroup,
-        viewType: Int): BaseViewHolder<in RecyclerViewItem> {
-        return FilterViewHolder(
-            inflateView(R.layout.item_filter, parent)) as BaseViewHolder<in RecyclerViewItem>
+    override fun customViewHolder(parent: ViewGroup, viewType: Int): Any {
+        return FilterViewHolder(inflateView(R.layout.item_filter, parent))
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : BaseDiffUtil<RecyclerViewItem>() {
-            override fun areItemsTheSame(oldItem: RecyclerViewItem,
-                newItem: RecyclerViewItem): Boolean {
+        private val diffUtil = object : BaseDiffUtil<FilterItem>() {
+            override fun areItemsTheSame(oldItem: FilterItem, newItem: FilterItem): Boolean {
                 return true
             }
 
-            override fun areContentsTheSame(oldItem: RecyclerViewItem,
-                newItem: RecyclerViewItem): Boolean {
-                return oldItem == newItem
+            override fun areContentsTheSame(oldItem: FilterItem, newItem: FilterItem): Boolean {
+                return newItem == oldItem
             }
         }
     }

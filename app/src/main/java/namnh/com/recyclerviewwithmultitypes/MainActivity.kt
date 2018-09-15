@@ -3,6 +3,7 @@ package namnh.com.recyclerviewwithmultitypes
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import namnh.com.recyclerviewwithmultitypes.adapter.RecyclerViewItem
 import namnh.com.recyclerviewwithmultitypes.model.banner.BannerItem
@@ -20,7 +21,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val recyclerMain = findViewById<RecyclerView>(R.id.main_recycler)
+        val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        layoutManager.initialPrefetchItemCount = 4
+        recyclerMain.layoutManager = layoutManager
         recyclerMain.addItemDecoration(VerticalSpaceItemDecoration(24))
+
+
+        recyclerMain.isNestedScrollingEnabled = true
+
+
+        recyclerMain.adapter = DemoAdapter(initData())
+    }
+
+    private fun initData(): List<RecyclerViewItem> {
         val tempData = arrayListOf<RecyclerViewItem>()
 
         // temp data for banner
@@ -33,39 +46,39 @@ class MainActivity : AppCompatActivity() {
 
         // temp data for filter
         val filter = arrayListOf(
-            FilterItem(R.drawable.ic_launcher_background, "Ca nhạc"),
-            FilterItem(R.drawable.ic_launcher_background, "Phim"),
-            FilterItem(R.drawable.ic_launcher_background, "Giải trí"),
-            FilterItem(R.drawable.ic_launcher_background, "Hoạt hình"),
-            FilterItem(R.drawable.ic_launcher_background, "Thiếu nhi"),
+            FilterItem(R.drawable.ic_launcher_background, "Music"),
+            FilterItem(R.drawable.ic_launcher_background, "Movie"),
+            FilterItem(R.drawable.ic_launcher_background, "Entertainment"),
+            FilterItem(R.drawable.ic_launcher_background, "Cartoon"),
+            FilterItem(R.drawable.ic_launcher_background, "Children"),
             FilterItem(R.drawable.ic_launcher_background, "Bolero"),
-            FilterItem(R.drawable.ic_launcher_background, "Phim Hàn"),
-            FilterItem(R.drawable.ic_launcher_background, "Cổ nhạc"),
-            FilterItem(R.drawable.ic_launcher_background, "Khác")
+            FilterItem(R.drawable.ic_launcher_background, "OldMusic"),
+            FilterItem(R.drawable.ic_launcher_background, "Music"),
+            FilterItem(R.drawable.ic_launcher_background, "Movie"),
+            FilterItem(R.drawable.ic_launcher_background, "Entertainment"),
+            FilterItem(R.drawable.ic_launcher_background, "Cartoon"),
+            FilterItem(R.drawable.ic_launcher_background, "Children"),
+            FilterItem(R.drawable.ic_launcher_background, "Bolero"),
+            FilterItem(R.drawable.ic_launcher_background, "OldMusic"),
+            FilterItem(R.drawable.ic_launcher_background, "Other")
         )
         tempData.add(FilterCategoryItem(filter))
 
         // temp data for video
-        val category = arrayListOf("Có thể bạn thích xem", "Xem sau", "Xem nhiều",
-            "Đang trực tuyến")
+        val category = arrayListOf("You might like this", "Watch Later", "Trending", "Live Now")
         val videos = arrayListOf<VideoDetailItem>()
         for (i in 0..3) {
-            videos.add(VideoDetailItem(Color.RED,
-                "Đây là video bạn muốn xem $i",
+            videos.add(VideoDetailItem(Color.RED, "You may like this video $i",
                 "CNBC Channel", random()))
         }
         for (i in 0..20) {
             tempData.add(GridVideoDetailItem(
                 R.drawable.ic_music_video, category.random(), videos))
         }
-
-
-        recyclerMain.isNestedScrollingEnabled = false
-        recyclerMain.setHasFixedSize(true)
-        recyclerMain.adapter = DemoAdapter(tempData)
+        return tempData
     }
 
-    private fun random(): Int = Random().nextInt(200000)
-    private fun <E> List<E>.random(): E? = if (size > 0) get(Random().nextInt(size)) else null
+    private val random = Random()
+    private fun random(): Int = random.nextInt(200000)
+    private fun <E> List<E>.random(): E? = if (size > 0) get(random.nextInt(size)) else null
 }
-

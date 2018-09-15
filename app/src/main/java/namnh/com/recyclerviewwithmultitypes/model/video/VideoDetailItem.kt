@@ -10,4 +10,19 @@ class VideoDetailItem(var image: Int, var videoName: String?, val uploader: Stri
     override fun getType(): Int {
         return TYPE_VIDEO_ITEM
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is VideoDetailItem) return false
+
+        return image == other.image && videoName?.equals(
+            other.videoName) ?: false && uploader == other.uploader && videoViewedNumber == videoViewedNumber
+    }
+
+    override fun hashCode(): Int {
+        var result = image
+        result = 31 * result + (videoName?.hashCode() ?: 0)
+        result = 31 * result + uploader.hashCode()
+        result = 31 * result + videoViewedNumber
+        return result
+    }
 }

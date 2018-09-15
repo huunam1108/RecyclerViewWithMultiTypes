@@ -11,4 +11,8 @@ class BannerItem(val images: List<PagerColorItem>) : RecyclerViewItem {
     override fun getType(): Int {
         return TYPE_BANNER
     }
+
+    override fun hashCode(): Int {
+        return images.hashCode()
+    }
 }

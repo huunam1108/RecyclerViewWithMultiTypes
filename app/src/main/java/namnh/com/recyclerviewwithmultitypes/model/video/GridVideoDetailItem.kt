@@ -11,4 +11,8 @@ class GridVideoDetailItem(@DrawableRes var image: Int, var categoryName: String?
     override fun getType(): Int {
         return TYPE_GRID_VIDEO
     }
+
+    override fun hashCode(): Int {
+        return image.hashCode() + videoList.hashCode()
+    }
 }

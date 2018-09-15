@@ -9,4 +9,8 @@ class FilterCategoryItem(val filterList: List<FilterItem>) : RecyclerViewItem {
     override fun getType(): Int {
         return TYPE_LIST_FILTER
     }
+
+    override fun hashCode(): Int {
+        return filterList.hashCode()
+    }
 }

@@ -19,7 +19,6 @@ class BannerViewHolder(itemView: View) : BaseViewHolder<BannerItem>(itemView) {
     }
 
     override fun bind(item: BannerItem) {
-        super.bind(item)
         val adapter = CustomPagerAdapter(item.images)
         // wrap pager to provide infinite paging with wrap-around
         if (wrappedAdapter == null) {

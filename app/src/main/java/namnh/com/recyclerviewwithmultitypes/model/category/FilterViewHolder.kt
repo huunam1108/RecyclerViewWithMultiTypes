@@ -12,7 +12,6 @@ class FilterViewHolder(itemView: View) : BaseViewHolder<FilterItem>(itemView) {
     private var tvDescription: TextView = itemView.findViewById(R.id.text_filter_description)
 
     override fun bind(item: FilterItem) {
-        super.bind(item)
         iconFilter.setImageResource(item.image)
         tvDescription.text = item.filterName
     }
