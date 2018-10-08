@@ -14,7 +14,7 @@ class VideoDetailViewHolder(itemView: View) : BaseViewHolder<VideoDetailItem>(it
 
     override fun bind(item: VideoDetailItem) {
         imagePreview.setBackgroundColor(item.image)
-        tvDescription.text = item.videoName
+        tvDescription.text = item.videoName + " + " + adapterPosition
         tvUploader.text = item.uploader
         tvVideoViewed.text = itemView.context.getString(R.string.video_viewed_number,
             item.videoViewedNumber)

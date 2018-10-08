@@ -7,6 +7,7 @@ open class BaseViewHolder<T : RecyclerViewItem>(itemView: View) : RecyclerView.V
     itemView) {
     var item : T? = null
         private set
+
     open fun bind(item: T) {
         this.item = item
     }

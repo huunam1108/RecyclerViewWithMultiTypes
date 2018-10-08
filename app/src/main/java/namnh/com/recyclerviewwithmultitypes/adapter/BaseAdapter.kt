@@ -28,7 +28,7 @@ abstract class BaseAdapter protected constructor(
 
     @RecyclerType
     final override fun getItemViewType(position: Int): Int {
-        return getItem(position).getType()
+        return getItem(position).type
     }
 
     final override fun getItemId(position: Int): Long {
