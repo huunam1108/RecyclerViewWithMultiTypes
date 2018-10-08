@@ -3,12 +3,12 @@ package namnh.com.recyclerviewwithmultitypes.model.category
 import namnh.com.recyclerviewwithmultitypes.adapter.RecyclerType
 import namnh.com.recyclerviewwithmultitypes.adapter.RecyclerViewItem
 import namnh.com.recyclerviewwithmultitypes.adapter.TYPE_FILTER_ITEM
+import namnh.com.recyclerviewwithmultitypes.adapter.TYPE_UNKNOWN
 
 class FilterItem(var image: Int, var filterName: String?) : RecyclerViewItem {
     @RecyclerType
-    override fun getType(): Int {
-        return TYPE_FILTER_ITEM
-    }
+    override var type: Int = TYPE_UNKNOWN
+        get() = TYPE_FILTER_ITEM
 
     override fun equals(other: Any?): Boolean {
         if (other !is FilterItem) return false

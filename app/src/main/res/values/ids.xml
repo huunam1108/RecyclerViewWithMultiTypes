@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="footer_retry_button" type="id"/>
+    <item name="footer_retry_message" type="id"/>
+    <item name="footer_info_message" type="id"/>
+</resources>

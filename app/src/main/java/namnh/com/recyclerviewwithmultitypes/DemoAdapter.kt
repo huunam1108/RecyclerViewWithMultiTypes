@@ -6,6 +6,7 @@ import namnh.com.recyclerviewwithmultitypes.model.banner.BannerItem
 import namnh.com.recyclerviewwithmultitypes.model.banner.BannerViewHolder
 import namnh.com.recyclerviewwithmultitypes.model.category.FilterCategoryItem
 import namnh.com.recyclerviewwithmultitypes.model.category.FilterCategoryViewHolder
+import namnh.com.recyclerviewwithmultitypes.model.video.VideoDetailViewHolder
 import namnh.com.recyclerviewwithmultitypes.model.video.GridVideoDetailItem
 import namnh.com.recyclerviewwithmultitypes.model.video.GridVideoDetailViewHolder
 
@@ -16,13 +17,15 @@ class DemoAdapter : BaseAdapter(diffUtil) {
             TYPE_BANNER -> BannerViewHolder(inflateView(R.layout.item_banner, parent))
             TYPE_LIST_FILTER -> FilterCategoryViewHolder(
                 inflateView(R.layout.item_filter_category, parent))
+            TYPE_VIDEO_ITEM ->
+                VideoDetailViewHolder(inflateView(R.layout.item_video, parent))
             else ->
-                GridVideoDetailViewHolder(inflateView(R.layout.item_video_category, parent))
+                super.onCreateViewHolder(parent, viewType)
         }
     }
 
     companion object {
-        private val diffUtil = object : BaseDiffUtil<RecyclerViewItem>() {
+        val diffUtil = object : BaseDiffUtil<RecyclerViewItem>() {
             override fun areItemsTheSame(oldItem: RecyclerViewItem,
                 newItem: RecyclerViewItem): Boolean {
                 return true
