@@ -59,6 +59,16 @@ class LoadMoreWrapper private constructor(private val loadMoreAdapter: LoadMoreA
         return this
     }
 
+    fun setRetryMessage(message: String): LoadMoreWrapper {
+        loadMoreAdapter.retryMessage = message
+        return this
+    }
+
+    fun setInfoMessage(message: String): LoadMoreWrapper {
+        loadMoreAdapter.infoMessage = message
+        return this
+    }
+
     fun into(recyclerView: RecyclerView): LoadMoreAdapter {
         recyclerView.adapter = loadMoreAdapter
         return loadMoreAdapter

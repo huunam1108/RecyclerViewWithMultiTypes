@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import namnh.com.recyclerviewwithmultitypes.R
 
 class LoadMoreAdapter internal constructor(
@@ -20,6 +21,9 @@ class LoadMoreAdapter internal constructor(
 
     var retryView: View? = null
     private var retryResId = View.NO_ID
+
+    var retryMessage: String? = null
+    var infoMessage: String? = null
 
     lateinit var originalAdapter: RecyclerView.Adapter<*>
     private var recyclerView: RecyclerView? = null
@@ -100,7 +104,8 @@ class LoadMoreAdapter internal constructor(
             if (shouldRemove && positionStart == originalAdapter.itemCount) {
                 shouldRemove = false
             }
-            this@LoadMoreAdapter.notifyItemRangeChanged(positionStart, itemCount)
+            // UnComment this if you want more animations
+            // this@LoadMoreAdapter.notifyItemRangeChanged(positionStart, itemCount)
             isLoading = false
         }
 
@@ -108,7 +113,8 @@ class LoadMoreAdapter internal constructor(
             if (shouldRemove && positionStart == originalAdapter.itemCount) {
                 shouldRemove = false
             }
-            this@LoadMoreAdapter.notifyItemRangeChanged(positionStart, itemCount, payload)
+            // UnComment this if you want more animations
+            // this@LoadMoreAdapter.notifyItemRangeChanged(positionStart, itemCount, payload)
             isLoading = false
         }
 
@@ -118,7 +124,8 @@ class LoadMoreAdapter internal constructor(
             if (recyclerView?.childCount == 1) {
                 this@LoadMoreAdapter.notifyItemRemoved(0)
             }
-            this@LoadMoreAdapter.notifyItemRangeInserted(positionStart, itemCount)
+            // UnComment this if you want more animations
+            // this@LoadMoreAdapter.notifyItemRangeInserted(positionStart, itemCount)
             notifyFooterHolderChanged()
             isLoading = false
         }
@@ -143,7 +150,8 @@ class LoadMoreAdapter internal constructor(
                     this@LoadMoreAdapter.notifyItemRemoved(0)
                 }
             }
-            this@LoadMoreAdapter.notifyItemRangeRemoved(positionStart, itemCount)
+            // UnComment this if you want more animations
+            // this@LoadMoreAdapter.notifyItemRangeRemoved(positionStart, itemCount)
             if (shouldSync) {
                 loadMoreEnabled = true
             }
@@ -155,7 +163,8 @@ class LoadMoreAdapter internal constructor(
                 throw IllegalArgumentException(
                     "can not move last position after setLoadMoreEnabled(false)")
             }
-            this@LoadMoreAdapter.notifyItemMoved(fromPosition, toPosition)
+            // UnComment this if you want more animations
+            // this@LoadMoreAdapter.notifyItemMoved(fromPosition, toPosition)
             isLoading = false
         }
     }
@@ -213,21 +222,29 @@ class LoadMoreAdapter internal constructor(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int,
         payloads: List<Any>) {
-        if (holder is ProgressHolder) {
-            if (!canScroll(recyclerView?.layoutManager?.layoutDirection ?: RecyclerView.VERTICAL)
-                && onLoadMoreListener != null
-                && !isLoading) {
+        when (holder) {
+            is ProgressHolder -> {
+                if (!canScroll(
+                        recyclerView?.layoutManager?.layoutDirection ?: RecyclerView.VERTICAL)
+                    && onLoadMoreListener != null
+                    && !isLoading) {
 
-                isLoading = true
-                // fix Cannot call this method while RecyclerView is computing a layout or scrolling
-                recyclerView?.post { onLoadMoreListener!!.onLoadMore(enabled) }
+                    isLoading = true
+                    // fix Cannot call this method while RecyclerView is computing a layout or scrolling
+                    recyclerView?.post { onLoadMoreListener!!.onLoadMore(enabled) }
+                }
             }
-        } else if (holder is InfoHolder || holder is RetryHolder) {
-            // ignore
-        } else {
-            @Suppress("UNCHECKED_CAST")
-            (originalAdapter as RecyclerView.Adapter<RecyclerView.ViewHolder>).onBindViewHolder(
-                holder, position, payloads)
+            is InfoHolder -> {
+                holder.bind(infoMessage)
+            }
+            is RetryHolder -> {
+                holder.bind(retryMessage)
+            }
+            else -> {
+                @Suppress("UNCHECKED_CAST")
+                (originalAdapter as RecyclerView.Adapter<RecyclerView.ViewHolder>).onBindViewHolder(
+                    holder, position, payloads)
+            }
         }
     }
 
@@ -346,19 +363,47 @@ class LoadMoreAdapter internal constructor(
     }
 
     class InfoHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val textInfo = itemView.findViewById<TextView>(R.id.footer_info_message)
+
         init {
             LoadMoreHelper.setItemViewFullSpan(itemView)
         }
+
+        fun bind(text: String?) {
+            if (textInfo != null && !text.isNullOrEmpty()) {
+                textInfo.text = text
+            }
+        }
     }
 
-    class RetryHolder internal constructor(itemView: View, enabled: Enabled,
-        listener: OnLoadMoreListener?) : RecyclerView.ViewHolder(itemView) {
+    class RetryHolder internal constructor(itemView: View, val enabled: Enabled,
+        private val listener: OnLoadMoreListener?) : RecyclerView.ViewHolder(itemView) {
+
+        private val btnRetry = itemView.findViewById<View>(R.id.footer_retry_button)
+        private val textRetry = itemView.findViewById<TextView>(R.id.footer_retry_message)
+
         init {
             LoadMoreHelper.setItemViewFullSpan(itemView)
-            itemView.setOnClickListener {
-                enabled.setLoadFailed(false)
-                listener?.onLoadMore(enabled)
+            if (btnRetry != null) {
+                btnRetry.setOnClickListener {
+                    reload()
+                }
+            } else {
+                itemView.setOnClickListener {
+                    reload()
+                }
             }
+        }
+
+        fun bind(text: String?) {
+            if (textRetry != null && !text.isNullOrEmpty()) {
+                textRetry.text = text
+            }
+        }
+
+        private fun reload() {
+            enabled.setLoadFailed(false)
+            listener?.onLoadMore(enabled)
         }
     }
 
@@ -367,8 +412,9 @@ class LoadMoreAdapter internal constructor(
     }
 
     companion object {
-        const val TYPE_PROGRESS = 1000
-        const val TYPE_INFO = 2000
-        const val TYPE_RETRY = 3000
+        // DON'T make your recycler view type like below
+        const val TYPE_PROGRESS = 99997
+        const val TYPE_INFO = 99998
+        const val TYPE_RETRY = 99999
     }
 }

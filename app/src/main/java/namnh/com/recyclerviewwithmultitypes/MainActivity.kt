@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     var curPage = 1
     private val listData = mutableListOf<RecyclerViewItem>()
     val adapter = DemoAdapter()
-    lateinit var recyclerMain: RecyclerView
     var mShowLoadFailedEnabled = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +37,8 @@ class MainActivity : AppCompatActivity() {
             .setFooterView(R.layout.layout_progress)
             .setLoadFailedView(R.layout.layout_retry)
             .setNoMoreView(R.layout.layout_info)
+            .setInfoMessage("Thoi het roi dung keo nua")
+            .setRetryMessage("Bi loi roi, click de tao load lai cho")
             .setShowNoMoreEnabled(true)
             .setLoadMoreListener(object : LoadMoreAdapter.OnLoadMoreListener {
                 override fun onLoadMore(enabled: Enabled?) {
