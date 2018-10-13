@@ -10,21 +10,19 @@ import namnh.com.recyclerviewwithmultitypes.util.HorizontalSpaceItemDecoration
 
 class FilterCategoryViewHolder(itemView: View) : BaseViewHolder<FilterCategoryItem>(itemView) {
     private var filterRecyclerView: RecyclerView = itemView.findViewById(R.id.recycler_filter)
-    private var filterAdapter: FilterAdapter? = null
+    private var filterAdapter: FilterAdapter
 
     init {
         val layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
         layoutManager.initialPrefetchItemCount = 4
         filterRecyclerView.layoutManager = layoutManager
         filterRecyclerView.addItemDecoration(HorizontalSpaceItemDecoration(20))
+        filterAdapter = FilterAdapter()
+        filterRecyclerView.adapter = filterAdapter
     }
 
     override fun bind(item: FilterCategoryItem) {
-        if (filterAdapter == null) {
-            filterAdapter = FilterAdapter(item.filterList)
-            filterRecyclerView.adapter = filterAdapter
-        } else {
-            filterAdapter!!.submitList(item.filterList)
-        }
+        super.bind(item)
+        filterAdapter.submitList(item.filterList)
     }
 }

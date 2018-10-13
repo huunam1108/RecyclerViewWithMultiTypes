@@ -1,7 +1,7 @@
 package namnh.com.recyclerviewwithmultitypes.adapter
 
 interface RecyclerViewItem {
-    @RecyclerViewSupportedType
+    @RecyclerType
     fun getType(): Int
 
     override fun hashCode(): Int

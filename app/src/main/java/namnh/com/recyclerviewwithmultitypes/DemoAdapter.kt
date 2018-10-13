@@ -2,11 +2,14 @@ package namnh.com.recyclerviewwithmultitypes
 
 import android.view.ViewGroup
 import namnh.com.recyclerviewwithmultitypes.adapter.*
+import namnh.com.recyclerviewwithmultitypes.model.banner.BannerItem
 import namnh.com.recyclerviewwithmultitypes.model.banner.BannerViewHolder
+import namnh.com.recyclerviewwithmultitypes.model.category.FilterCategoryItem
 import namnh.com.recyclerviewwithmultitypes.model.category.FilterCategoryViewHolder
+import namnh.com.recyclerviewwithmultitypes.model.video.GridVideoDetailItem
 import namnh.com.recyclerviewwithmultitypes.model.video.GridVideoDetailViewHolder
 
-class DemoAdapter(data: List<RecyclerViewItem>) : BaseAdapter(data, diffUtil) {
+class DemoAdapter : BaseAdapter(diffUtil) {
 
     override fun customViewHolder(parent: ViewGroup, viewType: Int): Any {
         return when (viewType) {
@@ -27,6 +30,17 @@ class DemoAdapter(data: List<RecyclerViewItem>) : BaseAdapter(data, diffUtil) {
 
             override fun areContentsTheSame(oldItem: RecyclerViewItem,
                 newItem: RecyclerViewItem): Boolean {
+                when (oldItem) {
+                    is BannerItem -> {
+                        return newItem is BannerItem && newItem == oldItem
+                    }
+                    is FilterCategoryItem -> {
+                        return newItem is FilterCategoryItem && newItem == oldItem
+                    }
+                    is GridVideoDetailItem -> {
+                        return newItem is GridVideoDetailItem && newItem == oldItem
+                    }
+                }
                 return oldItem == newItem
             }
         }

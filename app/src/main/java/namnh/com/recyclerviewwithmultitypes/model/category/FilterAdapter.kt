@@ -5,7 +5,7 @@ import namnh.com.recyclerviewwithmultitypes.R
 import namnh.com.recyclerviewwithmultitypes.adapter.BaseAdapter
 import namnh.com.recyclerviewwithmultitypes.adapter.BaseDiffUtil
 
-class FilterAdapter(filterList: List<FilterItem>) : BaseAdapter(filterList, diffUtil) {
+class FilterAdapter : BaseAdapter(diffUtil) {
 
     override fun customViewHolder(parent: ViewGroup, viewType: Int): Any {
         return FilterViewHolder(inflateView(R.layout.item_filter, parent))

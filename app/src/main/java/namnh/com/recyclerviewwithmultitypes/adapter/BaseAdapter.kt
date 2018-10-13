@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 @Suppress("UNCHECKED_CAST")
-abstract class BaseAdapter protected constructor(val data: List<RecyclerViewItem>,
+abstract class BaseAdapter protected constructor(
     diffCallback: BaseDiffUtil<*>) : ListAdapter<RecyclerViewItem, BaseViewHolder<in RecyclerViewItem>>(
     diffCallback as BaseDiffUtil<in RecyclerViewItem>) {
 
@@ -26,17 +26,9 @@ abstract class BaseAdapter protected constructor(val data: List<RecyclerViewItem
         return holder as BaseViewHolder<in RecyclerViewItem>
     }
 
-    @RecyclerViewSupportedType
+    @RecyclerType
     final override fun getItemViewType(position: Int): Int {
         return getItem(position).getType()
-    }
-
-    final override fun getItem(position: Int): RecyclerViewItem {
-        return data[position]
-    }
-
-    final override fun getItemCount(): Int {
-        return data.size
     }
 
     final override fun getItemId(position: Int): Long {

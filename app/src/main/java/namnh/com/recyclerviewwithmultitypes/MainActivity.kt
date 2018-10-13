@@ -17,6 +17,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var demoAdapter: DemoAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,12 +27,12 @@ class MainActivity : AppCompatActivity() {
         layoutManager.initialPrefetchItemCount = 4
         recyclerMain.layoutManager = layoutManager
         recyclerMain.addItemDecoration(VerticalSpaceItemDecoration(24))
-
-
         recyclerMain.isNestedScrollingEnabled = true
 
+        demoAdapter = DemoAdapter()
+        recyclerMain.adapter = demoAdapter
 
-        recyclerMain.adapter = DemoAdapter(initData())
+        demoAdapter.submitList(initData())
     }
 
     private fun initData(): List<RecyclerViewItem> {
