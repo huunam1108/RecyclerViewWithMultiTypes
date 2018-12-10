@@ -48,21 +48,21 @@ class MainActivity : AppCompatActivity() {
 
         // temp data for filter
         val filter = arrayListOf(
-            FilterItem(R.drawable.ic_launcher_background, "Music"),
-            FilterItem(R.drawable.ic_launcher_background, "Movie"),
-            FilterItem(R.drawable.ic_launcher_background, "Entertainment"),
-            FilterItem(R.drawable.ic_launcher_background, "Cartoon"),
-            FilterItem(R.drawable.ic_launcher_background, "Children"),
-            FilterItem(R.drawable.ic_launcher_background, "Bolero"),
-            FilterItem(R.drawable.ic_launcher_background, "OldMusic"),
-            FilterItem(R.drawable.ic_launcher_background, "Music"),
-            FilterItem(R.drawable.ic_launcher_background, "Movie"),
-            FilterItem(R.drawable.ic_launcher_background, "Entertainment"),
-            FilterItem(R.drawable.ic_launcher_background, "Cartoon"),
-            FilterItem(R.drawable.ic_launcher_background, "Children"),
-            FilterItem(R.drawable.ic_launcher_background, "Bolero"),
-            FilterItem(R.drawable.ic_launcher_background, "OldMusic"),
-            FilterItem(R.drawable.ic_launcher_background, "Other")
+            FilterItem(R.mipmap.ic_launcher_round, "Music"),
+            FilterItem(R.mipmap.ic_launcher_round, "Movie"),
+            FilterItem(R.mipmap.ic_launcher_round, "Entertainment"),
+            FilterItem(R.mipmap.ic_launcher_round, "Cartoon"),
+            FilterItem(R.mipmap.ic_launcher_round, "Children"),
+            FilterItem(R.mipmap.ic_launcher_round, "Bolero"),
+            FilterItem(R.mipmap.ic_launcher_round, "OldMusic"),
+            FilterItem(R.mipmap.ic_launcher_round, "Music"),
+            FilterItem(R.mipmap.ic_launcher_round, "Movie"),
+            FilterItem(R.mipmap.ic_launcher_round, "Entertainment"),
+            FilterItem(R.mipmap.ic_launcher_round, "Cartoon"),
+            FilterItem(R.mipmap.ic_launcher_round, "Children"),
+            FilterItem(R.mipmap.ic_launcher_round, "Bolero"),
+            FilterItem(R.mipmap.ic_launcher_round, "OldMusic"),
+            FilterItem(R.mipmap.ic_launcher_round, "Other")
         )
         tempData.add(FilterCategoryItem(filter))
 
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         }
         for (i in 0..20) {
             tempData.add(GridVideoDetailItem(
-                R.drawable.ic_music_video, category.random(), videos))
+                R.mipmap.ic_launcher_round, category.random(), videos))
         }
         return tempData
     }

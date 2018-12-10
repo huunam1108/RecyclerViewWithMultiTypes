@@ -1,8 +1,6 @@
 # RecyclerViewWithMultiTypes
 My demo for multi item types using RecyclerView
 
-![Demo](/gif/demo.gif)
-
 ## Usage
 
 Step 1:
